@@ -2,32 +2,29 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
 interface AuthState {
-    apiKey: string,
-    step: number,
-}
+    isAuthorized: boolean
+};
+
 
 const initialState: AuthState = {
-    apiKey: '',
-    step: 0,
-}
+    isAuthorized: false,
+};
 
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setApiKey(state: AuthState, action: PayloadAction<string>) {
-            state.apiKey = action.payload;
-        },
-
-        setStep(state: AuthState, action: PayloadAction<number>) {
-            state.step = action.payload;
-        },
+        setIsAuthorized(state: AuthState, action: PayloadAction<boolean>) {
+            state.isAuthorized = action.payload;
+        }
     }
 });
 
-export const {
-    setApiKey,setStep,
+
+export const { 
+    setIsAuthorized, 
 } = authSlice.actions;
+
 
 export default authSlice.reducer;

@@ -17,7 +17,7 @@ export type BottomTabsNavigationParams = {
 
     },
 
-    TakePhotoPage: {
+    AuthenticationPage: {
 
     },
 

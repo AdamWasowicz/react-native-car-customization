@@ -1,17 +1,38 @@
 import React from 'react';
-import { Pressable, Text, StyleSheet } from 'react-native';
-import appColorScheme from '../../../constants/appColorScheme';
+import { Pressable, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
+import useAppColorScheme from '../../../hooks/useAppColorScheme';
 
 
 interface ButtonProps {
     buttonStyle?: {},
     button_PressedStyle?: {},
     textStyle?: {},
-    onPress: () => void,
+    onPress?: () => void,
     caption: String
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
+    const appColorScheme = useAppColorScheme();
+    const style = StyleSheet.create({
+        button: {
+            backgroundColor: appColorScheme.button,
+            height: 64,
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingVertical: 8,
+        },
+    
+        button_Pressed: {
+            backgroundColor: appColorScheme.buttonPressed,
+        },
+    
+        buttonText: {
+            color: appColorScheme.buttonTextColor,
+            fontSize: 32,
+            fontFamily: 'Roboto-Regular',
+        }
+    });
 
     return (
         <Pressable
@@ -28,25 +49,5 @@ const Button: React.FC<ButtonProps> = (props) => {
     )
 }
 
-const style = StyleSheet.create({
-    button: {
-        backgroundColor: appColorScheme.blue,
-        height: 64,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingVertical: 8,
-    },
-
-    button_Pressed: {
-        backgroundColor: appColorScheme.darkBlue,
-    },
-
-
-    buttonText: {
-        color: 'white',
-        fontSize: 24,
-        fontFamily: 'Roboto-Regular',
-    }
-})
 
 export default Button;

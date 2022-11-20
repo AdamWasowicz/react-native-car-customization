@@ -3,15 +3,15 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator, NativeStackNavigationProp} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from "@expo/vector-icons";
-import { useAppDispatch } from "../../redux/hooks";
 import { BottomTabsNavigationParams, StackNavigationParams } from "./types";
 import HomePage from "../../pages/HomePage";
 import WelcomePage from "../../pages/WelcomePage";
 import IconButton from "../UI/IconButton";
 import AppOptionsPage from "../../pages/AppOptionsPage";
-import appColorScheme from "../../constants/appColorScheme";
-import style from './style';
 import CarSettingsPage from "../../pages/CarSettingsPage";
+import useAppColorScheme from "../../hooks/useAppColorScheme";
+import { useAppSelector } from "../../redux/hooks";
+import AuthenticationPage from "../../pages/AuthenticationPage";
 
 
 //Navigators
@@ -20,13 +20,25 @@ const BottomTabsNavigation = createBottomTabNavigator<BottomTabsNavigationParams
 
 
 const Navigation: React.FC = () => {
+    const theme = useAppSelector(state => state.app.colorTheme)
+    const appColorScheme = useAppColorScheme();
 
     return (
         <NavigationContainer>
             <StackNavigation.Navigator
-                defaultScreenOptions={{
+                screenOptions={{
+                    headerTintColor: appColorScheme.navigationTextColor,
+                    navigationBarColor: appColorScheme.navigationBackground,
+                    headerStyle: {
+                        backgroundColor: appColorScheme.navigationBackground,   
+                    },
+                    contentStyle: {
+                        backgroundColor: appColorScheme.background,
+                    },
                     headerShadowVisible: true,
+                    statusBarStyle: theme == 'light' ? 'dark' : 'light',
                 }}
+                initialRouteName={"MainPage"}
             >
                 <StackNavigation.Screen
                     name="WelcomePage"
@@ -42,15 +54,18 @@ const Navigation: React.FC = () => {
                     component={Bottomtabs}
                     options={{
                         headerShown: false,
-                        animation: 'slide_from_left'
+                        animation: 'slide_from_left',
                     }}
+                    
                 />
 
                 <StackNavigation.Screen
                     name="AppOptionsPage"
+
                     component={AppOptionsPage}
                     options={{
-                        animation: 'slide_from_right'
+                        animation: 'slide_from_bottom',
+                        title: "Opcje"
                     }}
                 />
             </StackNavigation.Navigator>
@@ -59,14 +74,24 @@ const Navigation: React.FC = () => {
 }
 
 const Bottomtabs: React.FC = () => {
-
     const navigation = useNavigation<NativeStackNavigationProp<StackNavigationParams>>();
+    const appColorScheme = useAppColorScheme();
 
     return (
         <BottomTabsNavigation.Navigator
             screenOptions={{
-                tabBarActiveTintColor: appColorScheme.blue,
-                tabBarInactiveTintColor: 'gray',
+                tabBarStyle: {
+                    borderTopColor: appColorScheme.bottomTabsInactive,
+                    borderTopWidth: 1,
+                },
+                tabBarActiveTintColor: appColorScheme.bottomTabsActive,
+                tabBarInactiveTintColor: appColorScheme.bottomTabsInactive,
+                tabBarActiveBackgroundColor: appColorScheme.navigationBackground,
+                tabBarInactiveBackgroundColor: appColorScheme.navigationBackground,
+                headerTintColor: appColorScheme.navigationTextColor,
+                headerBackgroundContainerStyle: {
+                    backgroundColor: appColorScheme.navigationBackground,
+                },
                 headerRight: ({tintColor}) =>
                     <IconButton
                         name='options'
@@ -76,9 +101,17 @@ const Bottomtabs: React.FC = () => {
                             navigation.navigate("AppOptionsPage", {});
                         }}
                         />,
-                headerStyle: style.bottomTabsHeader,
+                headerStyle: {
+                    backgroundColor: appColorScheme.navigationBackground,
+                    borderBottomColor: appColorScheme.bottomTabsInactive,
+                    borderBottomWidth: 1
+                },
+
             }}
             initialRouteName="HomePage"
+            sceneContainerStyle={{
+                backgroundColor: appColorScheme.background,
+            }}
         >
             <BottomTabsNavigation.Screen
                 name="HomePage"
@@ -96,8 +129,8 @@ const Bottomtabs: React.FC = () => {
             />
 
             <BottomTabsNavigation.Screen
-                name='TakePhotoPage'
-                component={HomePage}
+                name='AuthenticationPage'
+                component={AuthenticationPage}
                 options={{
                     headerTitle: "Uwierzytelnienie",
                     title: "Uwierzytelnienie",

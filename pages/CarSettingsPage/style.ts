@@ -4,12 +4,19 @@ import { StyleSheet } from "react-native";
 const style = StyleSheet.create({
     root: {
         flex: 1,
-        backgroundColor: 'white',
-        padding: 10,
+        padding: 16,
     },
 
     center: {
         textAlign: 'center',
+    },
+
+    button: {
+        marginBottom: 16,
+    },
+
+    buttonLast: {
+        marginBottom: 32,
     }
 })
 

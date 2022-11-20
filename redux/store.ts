@@ -1,12 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+
 //Reducers
-import AuthReducer from './features/auth-slice';
+import carSettingsReducers from './features/carSettings-slice';
+import appReducers from './features/app-slice';
+import authReducers from './features/auth-slice';
+
 
 //Store
 export const store = configureStore({
     reducer: {
-        auth: AuthReducer,
+        carSettings: carSettingsReducers,
+        app: appReducers,
+        auth: authReducers,
     }
 })
 

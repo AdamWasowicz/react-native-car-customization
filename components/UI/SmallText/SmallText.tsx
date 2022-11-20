@@ -1,5 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
+import useAppColorScheme from '../../../hooks/useAppColorScheme';
+import { useAppSelector } from '../../../redux/hooks';
 
 
 interface SmallTextProps {
@@ -9,6 +11,16 @@ interface SmallTextProps {
 
 
 const SmallText: React.FC<SmallTextProps> = (props) => {
+    const appColorScheme = useAppColorScheme();
+
+    const style = StyleSheet.create({
+        root: {
+            fontSize: 18,
+            fontFamily: 'Lato-Regular',
+            color: appColorScheme.textColor,
+        }
+    })
+    
 
     return (
         <Text style={[style.root, props.style]}>
@@ -16,14 +28,6 @@ const SmallText: React.FC<SmallTextProps> = (props) => {
         </Text>
     )
 }
-
-
-const style = StyleSheet.create({
-    root: {
-        fontSize: 18,
-        fontFamily: 'Lato-Regular',
-    }
-})
 
 
 export default SmallText;

@@ -2,7 +2,7 @@
   "expo": {
     "name": "ICK_P_FE",
     "slug": "ICK_P_FE",
-    "version": "0.1.0",
+    "version": "0.3.0",
     "orientation": "portrait",
     "entryPoint": "./index.ts",
     "icon": "./assets/images/icon.png",
@@ -13,6 +13,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Ta aplikacja potrzebuje dostępu do aparatu w celu uwierzyelnienia cie"
+        }
+      ]
+    ],
     "updates": {
       "fallbackToCacheTimeout": 0
     },

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import appColorScheme from '../../constants/appColorScheme';
+
 
 const useWelcomePageStyle = () => {
     return StyleSheet.create({
@@ -7,9 +7,7 @@ const useWelcomePageStyle = () => {
             flex: 1,
             flexDirection: 'column',
             justifyContent: 'space-between',
-
-            backgroundColor: 'white',
-            padding: 25,
+            padding: 24,
         },
 
         headerText: {

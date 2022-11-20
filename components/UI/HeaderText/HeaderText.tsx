@@ -1,5 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
+import useAppColorScheme from '../../../hooks/useAppColorScheme';
+import { useAppSelector } from '../../../redux/hooks';
 
 
 interface HeaderTextProps {
@@ -9,6 +11,18 @@ interface HeaderTextProps {
 
 
 const HeaderText: React.FC<HeaderTextProps> = (props) => {
+    const appColorScheme = useAppColorScheme();
+
+    const style = StyleSheet.create({
+        root: {
+            fontSize: 48,
+            fontFamily: 'Roboto-Regular',
+            letterSpacing: 2,
+            marginBottom: 8,
+            color: appColorScheme.textColor,
+        }
+    })
+
 
     return (
         <Text
@@ -20,14 +34,5 @@ const HeaderText: React.FC<HeaderTextProps> = (props) => {
         </Text>
     )
 }
-
-const style = StyleSheet.create({
-    root: {
-        fontSize: 32,
-        fontFamily: 'Roboto-Regular',
-        letterSpacing: 2,
-        marginBottom: 8,
-    }
-})
 
 export default HeaderText;

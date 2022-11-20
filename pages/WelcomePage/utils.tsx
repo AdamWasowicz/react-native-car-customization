@@ -5,7 +5,6 @@ import { StackNavigationParams } from '../../components/Navigation/types';
 
 
 export const useWelcomePage = () => {
-
     const navigation = useNavigation<NativeStackNavigationProp<StackNavigationParams>>();
 
 
