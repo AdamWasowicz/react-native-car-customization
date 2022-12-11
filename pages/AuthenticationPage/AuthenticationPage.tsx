@@ -1,34 +1,26 @@
 import React from 'react';
 import { View } from 'react-native';
-import useAuthenticationPage from './utils';
-import useStyle from './style';
-import { Ionicons } from "@expo/vector-icons";
-import useAppColorScheme from '../../hooks/useAppColorScheme';
 import Button from '../../components/UI/Button';
+import style from './style';
+import useAuthenticationPage from './utils';
 
 
 const AuthenticationPage: React.FC = () => {
-
     const {
-        onClickHandler
+        navigateToLogin, navigateToRegister
     } = useAuthenticationPage();
-    const style = useStyle();
-    const appColorScheme = useAppColorScheme();
-
 
     return (
         <View style={style.root}>
-                <Ionicons
-                    name='camera'
-                    size={256 +  128}
-                    color={appColorScheme.button}
-                    style={{textAlign: 'center'}}
-                />
+            <Button
+                caption={"Login"}
+                onPress={navigateToLogin}
+            />
 
-                <Button
-                    caption={'Uwierzytelnij'}
-                    onPress={onClickHandler}
-                />
+            <Button 
+                caption={"Rejestracja"}
+                onPress={navigateToRegister}
+            />
         </View>
     )
 }

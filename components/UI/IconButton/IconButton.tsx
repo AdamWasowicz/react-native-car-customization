@@ -7,7 +7,8 @@ interface IconButtonProps {
     onPress: () => void,
     size: number, 
     color: string, 
-    name: typeof Ionicons.defaultProps
+    name: typeof Ionicons.defaultProps,
+    rootStyle?: {}
 }
 
 
@@ -16,9 +17,9 @@ const IconButton: React.FC<IconButtonProps> = (props) => {
     return (
         <Pressable 
             onPress={props.onPress}
-            style={({pressed}) => pressed && style.pressed}
+            style={({pressed}) => [pressed && style.pressed]}
         >
-            <View style={style.buttonContainer}>
+            <View style={[style.buttonContainer, props.rootStyle]}>
                 <Ionicons
                     name={props.name}
                     size={props.size}
@@ -31,10 +32,7 @@ const IconButton: React.FC<IconButtonProps> = (props) => {
 
 const style = StyleSheet.create({
     buttonContainer: {
-        borderRadius: 24,
         padding: 8,
-        marginHorizontal: 8,
-        marginVertical: 2,
     },
 
     pressed: {

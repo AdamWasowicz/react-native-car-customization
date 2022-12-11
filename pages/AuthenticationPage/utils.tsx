@@ -1,30 +1,24 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
-import { launchCameraAsync } from 'expo-image-picker';
-import { ImagePickerOptions } from 'expo-image-picker/build/ImagePicker.types';
-import { useAppDispatch } from '../../redux/hooks';
-import { setIsAuthorized } from '../../redux/features/auth-slice';
-
+import { StackNavigationParams } from '../../components/Navigation/types';
 
 
 const useAuthenticationPage = () => {
-    const dispatch = useAppDispatch();
+    const navigation = useNavigation<NativeStackNavigationProp<StackNavigationParams>>();
+    
+    const navigateToLogin = () => {
+        navigation.navigate("LoginPage", {})
+    }
 
-    const onClickHandler = async () => {
-        const cameraOptions: ImagePickerOptions = {
-            allowsEditing: true,
-            aspect: [3, 2],
-            quality: 0.5,
-        }
-
-        const image = await launchCameraAsync(cameraOptions);
-        console.log(image);
-        
-        dispatch(setIsAuthorized(true));  
+    const navigateToRegister = () => {
+        navigation.navigate("RegisterUserPage", {})
     }
 
     return {
-        onClickHandler,
+        navigateToLogin, navigateToRegister
     }
-}
+};
+
 
 export default useAuthenticationPage;

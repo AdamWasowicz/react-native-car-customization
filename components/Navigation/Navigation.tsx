@@ -12,6 +12,8 @@ import CarSettingsPage from "../../pages/CarSettingsPage";
 import useAppColorScheme from "../../hooks/useAppColorScheme";
 import { useAppSelector } from "../../redux/hooks";
 import AuthenticationPage from "../../pages/AuthenticationPage";
+import LoginPage from "../../pages/LoginPage";
+import RegiserUserPage from "../../pages/RegisterUserPage/RegiserUserPage";
 
 
 //Navigators
@@ -61,11 +63,28 @@ const Navigation: React.FC = () => {
 
                 <StackNavigation.Screen
                     name="AppOptionsPage"
-
                     component={AppOptionsPage}
                     options={{
-                        animation: 'slide_from_bottom',
+                        animation: 'slide_from_right',
                         title: "Opcje"
+                    }}
+                />
+
+                <StackNavigation.Screen
+                    name="LoginPage"
+                    component={LoginPage}
+                    options={{
+                        animation: 'slide_from_right',
+                        title: "Logowanie"
+                    }}
+                />
+
+                <StackNavigation.Screen
+                    name="RegisterUserPage"
+                    component={RegiserUserPage}
+                    options={{
+                        animation: 'slide_from_right',
+                        title: "Rejestracja"
                     }}
                 />
             </StackNavigation.Navigator>

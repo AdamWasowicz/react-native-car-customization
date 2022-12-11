@@ -10,6 +10,14 @@ export type StackNavigationParams = {
     AppOptionsPage: {
 
     },
+
+    LoginPage: {
+
+    },
+
+    RegisterUserPage: {
+        
+    },
 }
 
 export type BottomTabsNavigationParams = {
