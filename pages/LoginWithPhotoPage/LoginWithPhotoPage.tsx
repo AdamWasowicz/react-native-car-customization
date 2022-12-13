@@ -1,16 +1,17 @@
 import React from 'react';
 import { View } from 'react-native';
-import useLoginPage from './utils';
+import useLoginWithPhotoPage from './utils';
 import useStyle from './style';
 import { Ionicons } from "@expo/vector-icons";
 import useAppColorScheme from '../../hooks/useAppColorScheme';
 import Button from '../../components/UI/Button';
 
 
-const LoginPage: React.FC = () => {
+const LoginWithPhotoPage: React.FC = () => {
     const {
         onClickHandler
-    } = useLoginPage();
+    } = useLoginWithPhotoPage();
+    
     const style = useStyle();
     const appColorScheme = useAppColorScheme();
 
@@ -25,12 +26,12 @@ const LoginPage: React.FC = () => {
                 />
 
                 <Button
-                    caption={'Uwierzytelnij'}
+                    caption={'Zrób zdjęcie'}
                     onPress={onClickHandler}
-                    buttonStyle={{marginBottom: 24}}
+                    buttonStyle={{marginBottom: 16}}
                 />
         </View>
     )
 }
 
-export default LoginPage;
+export default LoginWithPhotoPage;

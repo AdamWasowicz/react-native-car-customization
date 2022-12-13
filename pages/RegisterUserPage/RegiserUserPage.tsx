@@ -1,13 +1,18 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
-import HeaderText from '../../components/UI/HeaderText';
-
+import { View } from 'react-native';
+import useRegisterUserPage from './utils';
 
 const RegiserUserPage: React.FC = () => {
+    const {
+        renderView
+    } = useRegisterUserPage();
+
     return (
-        <ScrollView>
-            <HeaderText>RegiserUserPage</HeaderText>
-        </ScrollView>
+        <View style={{flex: 1}}>
+            {
+                renderView()
+            }
+        </View>
     )
 }
 

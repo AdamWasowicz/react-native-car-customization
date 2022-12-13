@@ -1,6 +1,6 @@
 import React from "react";
 import { NavigationContainer, useNavigation } from '@react-navigation/native'
-import { createNativeStackNavigator, NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from "@expo/vector-icons";
 import { BottomTabsNavigationParams, StackNavigationParams } from "./types";
@@ -12,8 +12,9 @@ import CarSettingsPage from "../../pages/CarSettingsPage";
 import useAppColorScheme from "../../hooks/useAppColorScheme";
 import { useAppSelector } from "../../redux/hooks";
 import AuthenticationPage from "../../pages/AuthenticationPage";
-import LoginPage from "../../pages/LoginPage";
+import LoginWithPhotoPage from "../../pages/LoginWithPhotoPage";
 import RegiserUserPage from "../../pages/RegisterUserPage/RegiserUserPage";
+import LoginWithTextPage from "../../pages/LoginWithTextPage";
 
 
 //Navigators
@@ -32,7 +33,7 @@ const Navigation: React.FC = () => {
                     headerTintColor: appColorScheme.navigationTextColor,
                     navigationBarColor: appColorScheme.navigationBackground,
                     headerStyle: {
-                        backgroundColor: appColorScheme.navigationBackground,   
+                        backgroundColor: appColorScheme.navigationBackground,
                     },
                     contentStyle: {
                         backgroundColor: appColorScheme.background,
@@ -58,7 +59,7 @@ const Navigation: React.FC = () => {
                         headerShown: false,
                         animation: 'slide_from_left',
                     }}
-                    
+
                 />
 
                 <StackNavigation.Screen
@@ -71,11 +72,20 @@ const Navigation: React.FC = () => {
                 />
 
                 <StackNavigation.Screen
-                    name="LoginPage"
-                    component={LoginPage}
+                    name="LoginWithPhotoPage"
+                    component={LoginWithPhotoPage}
                     options={{
                         animation: 'slide_from_right',
-                        title: "Logowanie"
+                        title: "Logowanie zdjęciem"
+                    }}
+                />
+
+                <StackNavigation.Screen
+                    name="LoginWithTextPage"
+                    component={LoginWithTextPage}
+                    options={{
+                        animation: 'slide_from_right',
+                        title: "Logowanie tekstem"
                     }}
                 />
 
@@ -95,6 +105,7 @@ const Navigation: React.FC = () => {
 const Bottomtabs: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<StackNavigationParams>>();
     const appColorScheme = useAppColorScheme();
+    const isAuthorized = useAppSelector(state => state.auth.isAuthorized);
 
     return (
         <BottomTabsNavigation.Navigator
@@ -111,7 +122,7 @@ const Bottomtabs: React.FC = () => {
                 headerBackgroundContainerStyle: {
                     backgroundColor: appColorScheme.navigationBackground,
                 },
-                headerRight: ({tintColor}) =>
+                headerRight: ({ tintColor }) =>
                     <IconButton
                         name='options'
                         size={40}
@@ -119,7 +130,7 @@ const Bottomtabs: React.FC = () => {
                         onPress={() => {
                             navigation.navigate("AppOptionsPage", {});
                         }}
-                        />,
+                    />,
                 headerStyle: {
                     backgroundColor: appColorScheme.navigationBackground,
                     borderBottomColor: appColorScheme.bottomTabsInactive,
@@ -138,29 +149,32 @@ const Bottomtabs: React.FC = () => {
                 options={{
                     headerTitle: "Strona Główna",
                     title: 'Strona Główna',
-                    tabBarIcon: ({size, color}) => 
+                    tabBarIcon: ({ size, color }) =>
                         <Ionicons
                             name='home'
                             color={color}
                             size={size}
-                            />
+                        />
                 }}
             />
 
-            <BottomTabsNavigation.Screen
-                name='AuthenticationPage'
-                component={AuthenticationPage}
-                options={{
-                    headerTitle: "Uwierzytelnienie",
-                    title: "Uwierzytelnienie",
-                    tabBarIcon: ({size, color}) => 
-                        <Ionicons
-                            name='camera'
-                            color={color}
-                            size={size}
+            {
+                isAuthorized == false &&
+                <BottomTabsNavigation.Screen
+                    name='AuthenticationPage'
+                    component={AuthenticationPage}
+                    options={{
+                        headerTitle: "Uwierzytelnienie",
+                        title: "Uwierzytelnienie",
+                        tabBarIcon: ({ size, color }) =>
+                            <Ionicons
+                                name='camera'
+                                color={color}
+                                size={size}
                             />
-                }}
-            />
+                    }}
+                />
+            }
 
             <BottomTabsNavigation.Screen
                 name="SettingsPage"
@@ -168,12 +182,12 @@ const Bottomtabs: React.FC = () => {
                 options={{
                     headerTitle: "Ustawienia pojazdu",
                     title: "Ustawienia pojazdu",
-                    tabBarIcon: ({size, color}) => 
+                    tabBarIcon: ({ size, color }) =>
                         <Ionicons
                             name='car'
                             color={color}
                             size={size}
-                            />
+                        />
                 }}
             />
         </BottomTabsNavigation.Navigator>

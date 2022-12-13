@@ -11,7 +11,11 @@ export type StackNavigationParams = {
 
     },
 
-    LoginPage: {
+    LoginWithPhotoPage: {
+
+    },
+
+    LoginWithTextPage: {
 
     },
 

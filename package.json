@@ -22,6 +22,7 @@
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
     "@reduxjs/toolkit": "^1.9.0",
+    "axios": "^1.2.1",
     "expo": "~46.0.16",
     "expo-app-loading": "~2.1.0",
     "expo-asset": "~8.6.1",
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@types/axios": "^0.14.0",
     "@types/react": "~18.0.14",
     "@types/react-native": "~0.69.1",
     "jest": "^26.6.3",

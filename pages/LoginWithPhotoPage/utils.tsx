@@ -6,13 +6,13 @@ import { setIsAuthorized } from '../../redux/features/auth-slice';
 
 
 
-const useLoginPage = () => {
+const useLoginWithPhotoPage = () => {
     const dispatch = useAppDispatch();
 
     const onClickHandler = async () => {
         const cameraOptions: ImagePickerOptions = {
             allowsEditing: true,
-            aspect: [3, 2],
+            aspect: [2, 3],
             quality: 0.5,
         }
 
@@ -27,4 +27,4 @@ const useLoginPage = () => {
     }
 }
 
-export default useLoginPage;
+export default useLoginWithPhotoPage;

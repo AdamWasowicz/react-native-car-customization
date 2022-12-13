@@ -7,8 +7,12 @@ import { StackNavigationParams } from '../../components/Navigation/types';
 const useAuthenticationPage = () => {
     const navigation = useNavigation<NativeStackNavigationProp<StackNavigationParams>>();
     
-    const navigateToLogin = () => {
-        navigation.navigate("LoginPage", {})
+    const navigateToLoginWithPhotoPage= () => {
+        navigation.navigate("LoginWithPhotoPage", {})
+    }
+
+    const navigateToLoginWithTextPage= () => {
+        navigation.navigate("LoginWithTextPage", {})
     }
 
     const navigateToRegister = () => {
@@ -16,7 +20,8 @@ const useAuthenticationPage = () => {
     }
 
     return {
-        navigateToLogin, navigateToRegister
+        navigateToLoginWithPhotoPage, navigateToRegister,
+        navigateToLoginWithTextPage
     }
 };
 
