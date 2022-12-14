@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import { StackNavigationParams } from '../../components/Navigation/types';
 import { setIsAuthorized, setToken } from '../../redux/features/auth-slice';
 import { useAppDispatch } from '../../redux/hooks';
-import useAxiosClient from '../../utils/Axios/useAxiosClient';
-import { AxiosResponse, AxiosError } from 'axios';
+import useAppStorage from '../../utils/useAppStorage/useAppStorage';
+import useHTTP from '../../utils/useHTTP/useHTTP';
+import { JWT } from '../../utils/useAppStorage/constants';
+import { Alert } from 'react-native';
+
 
 
 const useLoginWithTextPage = () => {
@@ -14,34 +17,33 @@ const useLoginWithTextPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [errorMsg, setErrorMsg] = useState<string>("");
 
-    const axios = useAxiosClient();
+    const axios = useHTTP();
     const dispatch = useAppDispatch();
     const navigation = useNavigation<NativeStackNavigationProp<StackNavigationParams>>();
+    const storage = useAppStorage();
 
 
     const handleReqestSend = async () => {
-        console.log('requset start...')
         setIsLoading(true);
 
         axios.SendLoginRequest(email, password)
-        .then((response: AxiosResponse<string>) => {
-            const token =  response.data;
-
-            console.log('requset end...')
-
-            setErrorMsg("");
-            setIsLoading(false);
+        .then(async (response: any) => {
+            const token: string =  response.auth_token;
 
             dispatch(setToken(token));
             dispatch(setIsAuthorized(true));
+            await storage.insertKey(JWT, token);
 
+            setErrorMsg("");
             moveToMainPage();
+            setIsLoading(false);
+            Alert.alert("Logowanie pomyślne", "Witamy ponownie");
         })
-        .catch((error: AxiosError) => {
-            console.log('[ ERROR API Login ] ' + error.message);
-            console.log('requset end...')
+        .catch((error) => {
+            console.log('[ ERROR API Login ] ' + error);
             setErrorMsg("Error with API");
             setIsLoading(false);
+            Alert.alert("Błąd logowania", "Sprawdź czy poprawnie wpisałeś swoje dane i spróbuj ponownie");
         });
     }
 

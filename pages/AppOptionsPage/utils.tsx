@@ -5,6 +5,9 @@ import {
 } from '../../redux/features/app-slice';
 import { setIsAuthorized } from '../../redux/features/auth-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import useAppStorage from '../../utils/useAppStorage/useAppStorage';
+import { JWT } from '../../utils/useAppStorage/constants';
+import { InfoTable } from '../../utils/useAppStorage/models';
 
 
 const useAppOptionsPage = () => {
@@ -14,6 +17,7 @@ const useAppOptionsPage = () => {
     const isAuthorized = useAppSelector(state => state.auth.isAuthorized);
     const advancedOptionsEnabled = useAppSelector(state => state.app.advancedOptionsEnabled);
     const apiAddress = useAppSelector(state => state.app.apiAddress);
+    const storage = useAppStorage();
 
     const [motiveToggle, setMotiveToggle] = useState<boolean>(theme == 'light' ? false : true);
     const [advancedOptionsToggle, setAdvancedOptionsToggle] = useState<boolean>(advancedOptionsEnabled);
@@ -21,7 +25,8 @@ const useAppOptionsPage = () => {
 
     
     // Motive Toggle
-    const handleMotiveToggle = (value: boolean) => {
+    // Remove async after tests
+    const handleMotiveToggle = async (value: boolean) => {
         switch(value) {
             case true:
                 dispatch(setDarkTheme());
@@ -32,6 +37,10 @@ const useAppOptionsPage = () => {
                 setMotiveToggle(false);
                 break;
         }
+
+        // Test
+        const jwt = await storage.getJWT();
+        console.log(jwt);
     }
 
     // Advanced Options Toggle

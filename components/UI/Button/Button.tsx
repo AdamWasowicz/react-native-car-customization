@@ -7,7 +7,7 @@ interface ButtonProps {
     buttonStyle?: {},
     button_PressedStyle?: {},
     textStyle?: {},
-    onPress?: () => void,
+    onPress?: (value: any) => void,
     caption: String
 }
 

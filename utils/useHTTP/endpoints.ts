@@ -5,7 +5,7 @@ export const loginWithText: endpoint = {
     method: 'POST',
 }
 
-export const registerWithText: endpoint = {
-    url: '//auth/register',
+export const registerUser: endpoint = {
+    url: '/auth/register',
     method: 'POST',
 }

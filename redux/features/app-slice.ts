@@ -5,13 +5,15 @@ interface AppState {
     colorTheme: 'light' | 'dark',
     advancedOptionsEnabled: boolean,
     apiAddress: string,
+    isLoading: boolean,
 }
 
 
 const initialState: AppState = {
     colorTheme: 'light',
     advancedOptionsEnabled: false,
-    apiAddress: "localhost:5000",
+    apiAddress: "http://localhost:1000",
+    isLoading: false,
 }
 
 
@@ -33,7 +35,10 @@ const appSlice = createSlice({
 
         setApiAddress(state: AppState, action: PayloadAction<string>) {
             state.apiAddress = action.payload;
-            console.log(action.payload);
+        },
+
+        setIsLoading(state: AppState, action: PayloadAction<boolean>) {
+            state.isLoading = action.payload;
         }
     }
 })
@@ -42,7 +47,7 @@ const appSlice = createSlice({
 export const {
     setLightTheme, setDarkTheme,
     setAdvancedOptionsEnabled, 
-    setApiAddress,
+    setApiAddress, setIsLoading
 } = appSlice.actions;
 
 

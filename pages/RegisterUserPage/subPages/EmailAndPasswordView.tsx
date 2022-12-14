@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import BigText from '../../../components/UI/BigText';
 import Button from '../../../components/UI/Button';
 import MediumText from '../../../components/UI/MediumText';
 import SimpleTextInput from '../../../components/UI/SimpleTextInput';
+import { isValid } from '../../../utils/validators/EmailAndPasswordValidator';
 
 interface EmailAndPasswordViewProps {
     onPress: () => void,
@@ -35,6 +36,16 @@ const EmailAndPasswordView: React.FC<EmailAndPasswordViewProps> = (props) => {
         },
     })
 
+    const onNext = () => {
+        const valid = isValid(props.email, props.password)
+        if (valid == false) {
+            Alert.alert("Niepoprawnie wypełniony formularz", "sprawdź czy email jest poprawny oraz hasło ma przynajmniej 8 znaków");
+            return;
+        }
+
+        props.onPress();
+    }
+
     return (
         <View style={style.root}>
                 <View>
@@ -65,7 +76,7 @@ const EmailAndPasswordView: React.FC<EmailAndPasswordViewProps> = (props) => {
                 </View>
 
                 <Button
-                    onPress={props.onPress}
+                    onPress={onNext}
                     caption={"Zaakceptuj i przejdź dalej"}
                     textStyle={{fontSize: 24}}
                 />
