@@ -108,6 +108,7 @@ const TakePhotosView: React.FC<TakePhotosViewProps> = (props) => {
                     ? props.onContinue
                     : takePhotoHandler
                 }
+                buttonStyle={{marginBottom: 24}}
             />
         </View>
     )

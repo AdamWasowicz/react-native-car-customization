@@ -75,6 +75,7 @@ const LoginWithTextPage: React.FC = () => {
                 <Button
                     onPress={handleReqestSend}
                     caption={"Zaloguj"}
+                    buttonStyle={{marginBottom: 24}}
                 />
             </View>
         </View>

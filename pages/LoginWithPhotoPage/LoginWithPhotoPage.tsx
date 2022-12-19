@@ -28,7 +28,7 @@ const LoginWithPhotoPage: React.FC = () => {
                 <Button
                     caption={'Zrób zdjęcie'}
                     onPress={onClickHandler}
-                    buttonStyle={{marginBottom: 16}}
+                    buttonStyle={{marginBottom: 24}}
                 />
         </View>
     )

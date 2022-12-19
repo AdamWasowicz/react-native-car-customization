@@ -1,8 +1,4 @@
 export type StackNavigationParams = {
-    WelcomePage : {
-
-    },
-
     MainPage: {
 
     },

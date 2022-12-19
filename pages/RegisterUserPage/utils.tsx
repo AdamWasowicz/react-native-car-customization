@@ -2,19 +2,17 @@ import React, { useState } from 'react';
 import InformationView from './subPages/InformationView';
 import EmailAndPasswordView from './subPages/EmailAndPasswordView';
 import TakePhotosView from './subPages/TakePhotosView';
-import useHTTP from '../../utils/useHTTP/useHTTP';
+import useHTTP from '../../hooks/useHTTP/useHTTP';
 import { useAppDispatch } from '../../redux/hooks';
 import { setIsLoading } from '../../redux/features/app-slice';
 import { setIsAuthorized, setToken } from '../../redux/features/auth-slice';
-import useAppStorage from '../../utils/useAppStorage/useAppStorage';
-import { JWT } from '../../utils/useAppStorage/constants';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { StackNavigationParams } from '../../components/Navigation/types';
+import useAppStorage from '../../hooks/useAppStorage';
+import { JWT } from '../../hooks/useAppStorage/constants';
 import { Alert } from 'react-native';
+import useAppNavigation from '../../hooks/useAppNavigation';
 
 const useRegisterUserPage = () => {
-    const requiredAmountOfPhotos: number = 2;
+    const requiredAmountOfPhotos: number = 4;
 
     const [formStep, setFormStep] = useState<number>(0);
     const [email, setEmail] = useState<string>("");
@@ -24,7 +22,7 @@ const useRegisterUserPage = () => {
     const http = useHTTP();
     const dispatch = useAppDispatch();
     const storage = useAppStorage();
-    const navigation = useNavigation<NativeStackNavigationProp<StackNavigationParams>>();
+    const navigation = useAppNavigation();
     
 
     
@@ -46,13 +44,13 @@ const useRegisterUserPage = () => {
 
     const moveToMainPage = () => {
         //Move to MainPage
-        navigation.navigate(
+        navigation.stackNavigator.navigate(
             "MainPage",
             {}
         )
 
         //Disable going back
-        navigation.reset({
+        navigation.stackNavigator.reset({
             index: 0,
             routes: [{name: 'MainPage'}],
         });
@@ -79,9 +77,9 @@ const useRegisterUserPage = () => {
         })
         .catch((error) => {
             console.log('[ ERROR API Login ] ' + error);
-            setIsLoading(false);
+            dispatch(setIsLoading(false));
             Alert.alert("Bład podczas rejestracji użytkownika",
-            "Sam nie wiem co poszło nie tak");
+            "Spróbuj ponownie później");
             Promise.reject();
         })
     }

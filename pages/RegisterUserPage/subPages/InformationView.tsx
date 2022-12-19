@@ -44,6 +44,7 @@ const InformationView: React.FC<InformationViewProps> = (props) => {
             <Button
                 caption={"Przejdź dalej"}
                 onPress={props.onClick}
+                buttonStyle={{marginBottom: 24}}
             />
         </View>
     )

@@ -5,7 +5,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from "@expo/vector-icons";
 import { BottomTabsNavigationParams, StackNavigationParams } from "./types";
 import HomePage from "../../pages/HomePage";
-import WelcomePage from "../../pages/WelcomePage";
 import IconButton from "../UI/IconButton";
 import AppOptionsPage from "../../pages/AppOptionsPage";
 import CarSettingsPage from "../../pages/CarSettingsPage";
@@ -43,15 +42,6 @@ const Navigation: React.FC = () => {
                 }}
                 initialRouteName={"MainPage"}
             >
-                <StackNavigation.Screen
-                    name="WelcomePage"
-                    component={WelcomePage}
-                    options={{
-                        headerShown: false,
-                        animation: 'fade_from_bottom',
-                    }}
-                />
-
                 <StackNavigation.Screen
                     name="MainPage"
                     component={Bottomtabs}

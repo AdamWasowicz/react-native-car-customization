@@ -49,7 +49,7 @@ const EmailAndPasswordView: React.FC<EmailAndPasswordViewProps> = (props) => {
     return (
         <View style={style.root}>
                 <View>
-                    <BigText style={style.center}>Twoje dane do rejestracji</BigText>
+                    <BigText style={[style.center, {marginBottom: 16}]}>Twoje dane do rejestracji</BigText>
 
                     <View style={style.inputContainer}>
                         <MediumText>Email:</MediumText>
@@ -79,6 +79,7 @@ const EmailAndPasswordView: React.FC<EmailAndPasswordViewProps> = (props) => {
                     onPress={onNext}
                     caption={"Zaakceptuj i przejdź dalej"}
                     textStyle={{fontSize: 24}}
+                    buttonStyle={{marginBottom: 24}}
                 />
             </View>
     )

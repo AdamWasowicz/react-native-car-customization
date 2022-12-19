@@ -27,7 +27,7 @@ class HTTP_Client {
             return response.data
         })
         .catch((error: AxiosError) => {
-            Promise.reject(error.message);
+            Promise.reject(error);
         })
     }
 
@@ -43,7 +43,7 @@ class HTTP_Client {
             return response.data;
         })
         .catch((error: AxiosError) => {
-            Promise.reject(error.message);
+            Promise.reject(error);
         })
     }
 }

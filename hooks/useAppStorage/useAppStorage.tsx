@@ -7,7 +7,7 @@ import { InfoTable } from './models';
 export class AppStorageClient {
     private databse = SQLite.openDatabase(DB_NAME);
 
-    public initDb = (): Promise<void> => {
+    public initDb = async (): Promise<void> => {
         const promise  = new Promise<void>((resolve, reject) => {
             this.databse.transaction((tr) => {
                 tr.executeSql(`CREATE TABLE IF NOT EXISTS ${INFO} (
@@ -26,7 +26,7 @@ export class AppStorageClient {
         return promise;
     }
 
-    public getValueByKey = (key: string): Promise<SQLResultSet> => {
+    public getValueByKey = async (key: string): Promise<SQLResultSet> => {
         const promise = new Promise<SQLResultSet>((resolve, reject) => {
             this.databse.transaction((tr) => {
                 tr.executeSql(`SELECT * FROM ${INFO} WHERE ${KEY_ID} LIKE \'${key}\'`,
@@ -66,7 +66,7 @@ export class AppStorageClient {
         return promise;
     }
 
-    public deleteKey = (key: string): Promise<void> => {
+    public deleteKey = async (key: string): Promise<void> => {
         const promise = new Promise<void>((resolve, reject) => {
             this.databse.transaction((tr) => {
                 tr.executeSql(`DELETE FROM ${INFO} WHERE ${KEY_ID} LIKE \'${key}\'`,

@@ -1,13 +1,12 @@
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { StackNavigationParams } from '../../components/Navigation/types';
 import { setIsAuthorized, setToken } from '../../redux/features/auth-slice';
 import { useAppDispatch } from '../../redux/hooks';
-import useAppStorage from '../../utils/useAppStorage/useAppStorage';
-import useHTTP from '../../utils/useHTTP/useHTTP';
-import { JWT } from '../../utils/useAppStorage/constants';
+import useAppStorage from '../../hooks/useAppStorage';
+import useHTTP from '../../hooks/useHTTP/useHTTP';
+import { JWT } from '../../hooks/useAppStorage/constants';
 import { Alert } from 'react-native';
+import { AxiosError } from 'axios';
+import useAppNavigation from '../../hooks/useAppNavigation';
 
 
 
@@ -17,16 +16,16 @@ const useLoginWithTextPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [errorMsg, setErrorMsg] = useState<string>("");
 
-    const axios = useHTTP();
+    const http = useHTTP();
     const dispatch = useAppDispatch();
-    const navigation = useNavigation<NativeStackNavigationProp<StackNavigationParams>>();
+    const navigation = useAppNavigation();
     const storage = useAppStorage();
 
 
     const handleReqestSend = async () => {
         setIsLoading(true);
 
-        axios.SendLoginRequest(email, password)
+        await http.SendLoginRequest(email, password)
         .then(async (response: any) => {
             const token: string =  response.auth_token;
 
@@ -39,9 +38,8 @@ const useLoginWithTextPage = () => {
             setIsLoading(false);
             Alert.alert("Logowanie pomyślne", "Witamy ponownie");
         })
-        .catch((error) => {
-            console.log('[ ERROR API Login ] ' + error);
-            setErrorMsg("Error with API");
+        .catch((error: AxiosError) => {
+            setErrorMsg(error.message);
             setIsLoading(false);
             Alert.alert("Błąd logowania", "Sprawdź czy poprawnie wpisałeś swoje dane i spróbuj ponownie");
         });
@@ -49,13 +47,13 @@ const useLoginWithTextPage = () => {
 
     const moveToMainPage = () => {
         //Move to MainPage
-        navigation.navigate(
+        navigation.stackNavigator.navigate(
             "MainPage",
             {}
         )
 
         //Disable going back
-        navigation.reset({
+        navigation.stackNavigator.reset({
             index: 0,
             routes: [{name: 'MainPage'}],
         });
