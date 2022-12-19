@@ -8,8 +8,8 @@ interface carSettingsState {
     driverMirrorTiltX: number,
     driverMirrorTiltY: number,
 
-    passengerSeatTiltMirrorTiltX: number,
-    passengerSeatTiltMirrorTiltY: number,
+    passengerMirrorTiltX: number,
+    passengerMirrorTiltY: number,
 }
 
 
@@ -20,8 +20,8 @@ const initialState:carSettingsState = {
     driverMirrorTiltX: 0,
     driverMirrorTiltY: 0,
 
-    passengerSeatTiltMirrorTiltX: 0,
-    passengerSeatTiltMirrorTiltY: 0,
+    passengerMirrorTiltX: 0,
+    passengerMirrorTiltY: 0,
 }
 
 
@@ -46,11 +46,11 @@ const carSettingsSlice = createSlice({
         },
 
         setPassengerSeatTiltMirrorTiltX(state: carSettingsState, action: PayloadAction<number>) {
-            state.passengerSeatTiltMirrorTiltX = action.payload;
+            state.passengerMirrorTiltX = action.payload;
         },
 
         setPassengerSeatTiltMirrorTiltY(state: carSettingsState, action: PayloadAction<number>) {
-            state.passengerSeatTiltMirrorTiltY = action.payload;
+            state.passengerMirrorTiltY = action.payload;
         },
     }
 });

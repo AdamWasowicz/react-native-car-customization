@@ -3,11 +3,17 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AppState {
     colorTheme: 'light' | 'dark',
+    advancedOptionsEnabled: boolean,
+    apiAddress: string,
+    isLoading: boolean,
 }
 
 
 const initialState: AppState = {
     colorTheme: 'light',
+    advancedOptionsEnabled: false,
+    apiAddress: "http://localhost:1000",
+    isLoading: false,
 }
 
 
@@ -22,12 +28,26 @@ const appSlice = createSlice({
         setDarkTheme(state: AppState) {
             state.colorTheme = 'dark';
         },
+
+        setAdvancedOptionsEnabled(state: AppState, action: PayloadAction<boolean>) {
+            state.advancedOptionsEnabled = action.payload;
+        },
+
+        setApiAddress(state: AppState, action: PayloadAction<string>) {
+            state.apiAddress = action.payload;
+        },
+
+        setIsLoading(state: AppState, action: PayloadAction<boolean>) {
+            state.isLoading = action.payload;
+        }
     }
 })
 
 
 export const {
-    setLightTheme, setDarkTheme
+    setLightTheme, setDarkTheme,
+    setAdvancedOptionsEnabled, 
+    setApiAddress, setIsLoading
 } = appSlice.actions;
 
 

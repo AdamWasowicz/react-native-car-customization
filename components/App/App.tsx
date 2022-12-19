@@ -1,15 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider, SafeAreaView,  } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { store } from '../../redux/store';
 import Navigation from '../Navigation';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import useFontsHook from '../../hooks/useFonts';
-import { View, Text } from 'react-native';
 import AppLoading from 'expo-app-loading';
+import LoadingCover from '../UI/LoadingCover';
+import StartUp from '../StartUp';
 
 export default function App() {
-
     const [isAppReady, setIsAppReady] = useState<boolean>(false);
 
     const LoadFonts = async () => {
@@ -26,10 +25,14 @@ export default function App() {
       )
     }
 
+
     return (
       <SafeAreaProvider style={{flex: 1}}>
           <Provider store={store}>
-            <Navigation/>
+            <StartUp>
+              <LoadingCover/>
+              <Navigation/>
+            </StartUp>
           </Provider>
       </SafeAreaProvider>
     );

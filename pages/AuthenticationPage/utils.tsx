@@ -1,30 +1,27 @@
 import React from 'react';
-import { launchCameraAsync } from 'expo-image-picker';
-import { ImagePickerOptions } from 'expo-image-picker/build/ImagePicker.types';
-import { useAppDispatch } from '../../redux/hooks';
-import { setIsAuthorized } from '../../redux/features/auth-slice';
-
+import useAppNavigation from '../../hooks/useAppNavigation';
 
 
 const useAuthenticationPage = () => {
-    const dispatch = useAppDispatch();
+    const navigation = useAppNavigation();
+    
+    const navigateToLoginWithPhotoPage= () => {
+        navigation.stackNavigator.navigate("LoginWithPhotoPage", {})
+    }
 
-    const onClickHandler = async () => {
-        const cameraOptions: ImagePickerOptions = {
-            allowsEditing: true,
-            aspect: [3, 2],
-            quality: 0.5,
-        }
+    const navigateToLoginWithTextPage = () => {
+        navigation.stackNavigator.navigate("LoginWithTextPage", {})
+    }
 
-        const image = await launchCameraAsync(cameraOptions);
-        console.log(image);
-        
-        dispatch(setIsAuthorized(true));  
+    const navigateToRegister = () => {
+        navigation.stackNavigator.navigate("RegisterUserPage", {})
     }
 
     return {
-        onClickHandler,
+        navigateToLoginWithPhotoPage, navigateToRegister,
+        navigateToLoginWithTextPage
     }
-}
+};
+
 
 export default useAuthenticationPage;

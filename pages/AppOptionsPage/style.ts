@@ -5,7 +5,6 @@ const style = StyleSheet.create({
     root: {
         flex: 1,
         padding: 16,
-        justifyContent: 'space-between'
     },
 
     center: {
@@ -22,6 +21,14 @@ const style = StyleSheet.create({
 
     marginBottomSmall: {
         marginBottom: 16
+    },
+
+    marginTopSmall: {
+        marginTop: 16,
+    },
+
+    marginTopMedium: {
+        marginTop: 25,
     }
 });
 

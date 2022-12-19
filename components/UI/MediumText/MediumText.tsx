@@ -16,7 +16,7 @@ const MediumText: React.FC<MediumTextProps> = (props) => {
         root: {
             fontSize: 20,
             fontFamily: 'Lato-Regular',
-            color: appColorScheme.textColor
+            color: appColorScheme.textColor,
         }
     })
 

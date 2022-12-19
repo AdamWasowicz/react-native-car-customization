@@ -2,7 +2,7 @@
   "expo": {
     "name": "ICK_P_FE",
     "slug": "ICK_P_FE",
-    "version": "0.3.0",
+    "version": "0.8.0",
     "orientation": "portrait",
     "entryPoint": "./index.ts",
     "icon": "./assets/images/icon.png",
@@ -34,10 +34,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.adamwasowicz.ICK_P_FE"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "928d17e1-1030-4061-bf0e-f541936f02f2"
+      }
     }
   }
 }

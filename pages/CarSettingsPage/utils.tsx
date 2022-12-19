@@ -83,20 +83,20 @@ const useCarSettingsPage = () => {
 
             <SliderWithCaption
                 caption={'Nachylenie lusterka pasażera (oś X)'}
-                sliderCaption={carSettingsState.passengerSeatTiltMirrorTiltX.toFixed(0) + " Stopni"}
+                sliderCaption={carSettingsState.passengerMirrorTiltX.toFixed(0) + " Stopni"}
                 minValue={-30}
                 maxValue={30}
                 onValueChange={handlePassengerSeatTiltMirrorTiltXChange}
-                value={carSettingsState.passengerSeatTiltMirrorTiltX}
+                value={carSettingsState.passengerMirrorTiltX}
             />
 
             <SliderWithCaption
                 caption={'Nachylenie lusterka pasażera (oś Y)'}
-                sliderCaption={carSettingsState.passengerSeatTiltMirrorTiltY.toFixed(0) + " Stopni"}
+                sliderCaption={carSettingsState.passengerMirrorTiltY.toFixed(0) + " Stopni"}
                 minValue={-30}
                 maxValue={30}
                 onValueChange={handlePassengerSeatTiltMirrorTiltYChange}
-                value={carSettingsState.passengerSeatTiltMirrorTiltY}
+                value={carSettingsState.passengerMirrorTiltY}
             />
 
             <Button
@@ -116,8 +116,8 @@ const useCarSettingsPage = () => {
         passengerSeatTilt: carSettingsState.passengerSeatTilt,
         driverMirrorTiltX: carSettingsState.driverMirrorTiltX,
         driverMirrorTiltY: carSettingsState.driverMirrorTiltY,
-        passengerSeatTiltMirrorTiltX: carSettingsState.passengerSeatTiltMirrorTiltX,
-        passengerSeatTiltMirrorTiltY: carSettingsState.passengerSeatTiltMirrorTiltY,
+        passengerSeatTiltMirrorTiltX: carSettingsState.passengerMirrorTiltX,
+        passengerSeatTiltMirrorTiltY: carSettingsState.passengerMirrorTiltY,
 
         //Functions
         handleDriverSeatTiltChange,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import HeaderText from '../../components/UI/HeaderText';
 import SmallText from '../../components/UI/SmallText';
 import MediumText from '../../components/UI/MediumText';
@@ -15,7 +15,7 @@ const HomePage: React.FC = () => {
 
 
     return (
-        <View style={style.root}>
+        <ScrollView style={style.root}>
             <View style={style.marginBottomBig}>
                 <HeaderText style={[style.center, style.marginBottomSmall]}>
                     CarSetApp
@@ -45,7 +45,7 @@ const HomePage: React.FC = () => {
                     Po zalogowaniu uzyskasz dostęp do panelu "Ustawienia pojazdu" w którym będziesz miał możliwość dostosowywania auta do swoich potrzeb
                 </SmallText>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 

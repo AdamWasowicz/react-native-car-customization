@@ -1,14 +1,22 @@
 export type StackNavigationParams = {
-    WelcomePage : {
-
-    },
-
     MainPage: {
 
     },
 
     AppOptionsPage: {
 
+    },
+
+    LoginWithPhotoPage: {
+
+    },
+
+    LoginWithTextPage: {
+
+    },
+
+    RegisterUserPage: {
+        
     },
 }
 

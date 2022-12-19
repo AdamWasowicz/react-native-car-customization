@@ -3,12 +3,11 @@ import { Pressable, Text } from 'react-native';
 import { StyleSheet } from 'react-native';
 import useAppColorScheme from '../../../hooks/useAppColorScheme';
 
-
 interface ButtonProps {
     buttonStyle?: {},
     button_PressedStyle?: {},
     textStyle?: {},
-    onPress?: () => void,
+    onPress?: (value: any) => void,
     caption: String
 }
 
@@ -17,7 +16,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     const style = StyleSheet.create({
         button: {
             backgroundColor: appColorScheme.button,
-            height: 64,
+            minHeight: 64,
             justifyContent: 'center',
             alignItems: 'center',
             paddingVertical: 8,
@@ -31,6 +30,7 @@ const Button: React.FC<ButtonProps> = (props) => {
             color: appColorScheme.buttonTextColor,
             fontSize: 32,
             fontFamily: 'Roboto-Regular',
+            textAlign: 'center',
         }
     });
 

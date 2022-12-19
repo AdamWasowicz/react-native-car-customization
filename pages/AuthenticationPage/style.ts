@@ -2,16 +2,26 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 
-const useStyle = () => {
+const style = StyleSheet.create({
+    root: {
+        padding: 16,
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+    },
 
-    return StyleSheet.create({
-        root: {
-            flex: 1,
-            padding: 16,
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-        }
-    })
-}
+    buttonContainer: {
+        marginTop: 16,
+    },
 
-export default useStyle;
+    center: {
+        textAlign: 'center',
+    },
+
+    marginBottomMedium: {
+        marginBottom: 16,
+    }
+})
+
+export default style;
