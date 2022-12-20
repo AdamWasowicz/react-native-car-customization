@@ -12,7 +12,7 @@ interface AppState {
 const initialState: AppState = {
     colorTheme: 'light',
     advancedOptionsEnabled: false,
-    apiAddress: "http://localhost:1000",
+    apiAddress: "http://localhost",
     isLoading: false,
 }
 

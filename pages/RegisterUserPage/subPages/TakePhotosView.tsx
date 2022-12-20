@@ -52,10 +52,11 @@ const TakePhotosView: React.FC<TakePhotosViewProps> = (props) => {
             aspect: [2, 3],
             allowsEditing: false,
             quality: 0.5,
+            base64: true
         }
-        const image:any = await launchCameraAsync(cameraOptions);
+        const image: any = await launchCameraAsync(cameraOptions);
 
-        props.addImageToForm(image.uri)
+        props.addImageToForm(image.base64)
         handleIncreasePhotoNumber();
 
         dispatch(setIsLoading(false));

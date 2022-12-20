@@ -11,4 +11,5 @@ export interface loginUserWithTextPayload {
 export interface registerUserPayload {
     email: string,
     password: string
+    image: string
 }
