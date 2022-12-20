@@ -12,22 +12,21 @@ import { Alert } from 'react-native';
 import useAppNavigation from '../../hooks/useAppNavigation';
 
 const useRegisterUserPage = () => {
-    const requiredAmountOfPhotos: number = 4;
+    const requiredAmountOfPhotos: number = 1;
 
     const [formStep, setFormStep] = useState<number>(0);
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [photosUri, setPhotosUri] = useState<string[]>([]);
+    const [photosBase64, setPhotosBase64] = useState<string[]>([]);
 
     const http = useHTTP();
     const dispatch = useAppDispatch();
     const storage = useAppStorage();
     const navigation = useAppNavigation();
-    
 
     
     const hanldeAddPhoto = (value: string) => {
-        setPhotosUri([...photosUri, value]);
+        setPhotosBase64([...photosBase64, value]);
     }
 
     const handleEmailChange = (value: string) => {
@@ -56,12 +55,13 @@ const useRegisterUserPage = () => {
         });
     }
 
-    const handleRegiser = () => {
+    const handleRegiser = async () => {
         dispatch(setIsLoading(true));
 
         http.SendRegisterRequest({
             email: email,
-            password: password
+            password: password,
+            image: photosBase64[0]
         })
         .then(async (response: any) => {
             const token: string = response.auth_token;

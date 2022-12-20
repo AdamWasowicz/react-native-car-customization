@@ -1,7 +1,7 @@
 import { endpoint } from "./types"
 
 export const loginWithText: endpoint = {
-    url: '/auth/login',
+    url: '/auth/login/basic',
     method: 'POST',
 }
 
