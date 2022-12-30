@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { store } from '../../redux/store';
 import Navigation from '../Navigation';
 import React, { useState } from 'react';
-import useFontsHook from '../../hooks/useFonts';
+import useFontsHook from '../../hooks/useFonts/useFonts';
 import AppLoading from 'expo-app-loading';
 import LoadingCover from '../UI/LoadingCover';
 import StartUp from '../StartUp';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import useAppColorScheme from '../../hooks/useAppColorScheme';
+import useAppColorScheme from '../../hooks/useAppColorScheme/useAppColorScheme';
 import MediumText from '../UI/MediumText';
 
 

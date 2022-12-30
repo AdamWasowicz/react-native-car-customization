@@ -1,4 +1,4 @@
-import { colorScheme } from "../../hooks/useAppColorScheme";
+import { colorScheme } from "../../hooks/useAppColorScheme/useAppColorScheme";
 
 const lightColorScheme: colorScheme = {
     primary: '#219EBC',

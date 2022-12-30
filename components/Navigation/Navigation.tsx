@@ -8,7 +8,7 @@ import HomePage from "../../pages/HomePage";
 import IconButton from "../UI/IconButton";
 import AppOptionsPage from "../../pages/AppOptionsPage";
 import CarSettingsPage from "../../pages/CarSettingsPage";
-import useAppColorScheme from "../../hooks/useAppColorScheme";
+import useAppColorScheme from "../../hooks/useAppColorScheme/useAppColorScheme";
 import { useAppSelector } from "../../redux/hooks";
 import AuthenticationPage from "../../pages/AuthenticationPage";
 import LoginWithPhotoPage from "../../pages/LoginWithPhotoPage";

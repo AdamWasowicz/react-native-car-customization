@@ -2,7 +2,7 @@
   "expo": {
     "name": "ICK_P_FE",
     "slug": "ICK_P_FE",
-    "version": "0.8.1",
+    "version": "0.9.0",
     "orientation": "portrait",
     "entryPoint": "./index.ts",
     "icon": "./assets/images/icon.png",

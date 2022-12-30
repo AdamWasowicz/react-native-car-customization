@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import useAppColorScheme from "../../../hooks/useAppColorScheme";
+import useAppColorScheme from "../../../hooks/useAppColorScheme/useAppColorScheme";
 
 
 interface MediumTextProps {

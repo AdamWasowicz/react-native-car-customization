@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, Text } from 'react-native';
 import { StyleSheet } from 'react-native';
-import useAppColorScheme from '../../../hooks/useAppColorScheme';
+import useAppColorScheme from '../../../hooks/useAppColorScheme/useAppColorScheme';
 
 interface ButtonProps {
     buttonStyle?: {},

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import InformationView from './subPages/InformationView';
 import EmailAndPasswordView from './subPages/EmailAndPasswordView';
 import TakePhotosView from './subPages/TakePhotosView';
-import useHTTP from '../../hooks/useHTTP/useHTTP';
 import { useAppDispatch } from '../../redux/hooks';
 import { setIsLoading } from '../../redux/features/app-slice';
 import { setIsAuthorized, setToken } from '../../redux/features/auth-slice';
@@ -10,19 +9,21 @@ import useAppStorage from '../../hooks/useAppStorage';
 import { JWT } from '../../hooks/useAppStorage/constants';
 import { Alert } from 'react-native';
 import useAppNavigation from '../../hooks/useAppNavigation';
+import { registerPayload, registerResponse } from '../../hooks/useFaceRecognitionApi/models';
+import useFaceRecognitionApi from '../../hooks/useFaceRecognitionApi';
 
 const useRegisterUserPage = () => {
-    const requiredAmountOfPhotos: number = 1;
+    const requiredAmountOfPhotos: number = 4;
+
+    const dispatch = useAppDispatch();
+    const storage = useAppStorage();
+    const navigation = useAppNavigation();
+    const frApiClient = useFaceRecognitionApi();
 
     const [formStep, setFormStep] = useState<number>(0);
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [photosBase64, setPhotosBase64] = useState<string[]>([]);
-
-    const http = useHTTP();
-    const dispatch = useAppDispatch();
-    const storage = useAppStorage();
-    const navigation = useAppNavigation();
 
     
     const hanldeAddPhoto = (value: string) => {
@@ -58,30 +59,51 @@ const useRegisterUserPage = () => {
     const handleRegiser = async () => {
         dispatch(setIsLoading(true));
 
-        http.SendRegisterRequest({
+        // Send request
+        const data: registerPayload = {
             email: email,
             password: password,
             image: photosBase64[0]
-        })
-        .then(async (response: any) => {
-            const token: string = response.auth_token;
-            console.log(token)
+        }
+        let apiCallResponse: registerResponse;
 
-            dispatch(setToken(token));
+        try {
+            apiCallResponse = await frApiClient.regiser(data);
+        }
+        catch (error) {
+            Alert.alert("Błąd", "Nie udało się zarejestrować", [
+                {
+                    text: "Ok",
+                    style: 'default'
+                }
+            ])
+
+            dispatch(setIsLoading(false));
+            return;
+        }
+
+    
+        // Set JWT in storage
+        try {
+            await storage.insertKey(JWT, apiCallResponse!.auth_token)
+            dispatch(setToken(apiCallResponse!.auth_token));
             dispatch(setIsAuthorized(true));
-            await storage.insertKey(JWT, token);
 
+        }
+        catch (error) {
+            console.log(error);
+
+            Alert.alert("Błąd", "Nie udało się zapisać danych", [
+                {
+                    text: "Ok",
+                    style: 'default'
+                }
+            ])
+        }
+        finally {
             dispatch(setIsLoading(false));
-            Alert.alert("Rejestracja udana", "Pomyślnie zarejestrowano do aplikacji");
-            moveToMainPage();
-        })
-        .catch((error) => {
-            console.log('[ ERROR API Login ] ' + error);
-            dispatch(setIsLoading(false));
-            Alert.alert("Bład podczas rejestracji użytkownika",
-            "Spróbuj ponownie później");
-            Promise.reject();
-        })
+            return;
+        } 
     }
 
     const getInformationView = (): JSX.Element => {

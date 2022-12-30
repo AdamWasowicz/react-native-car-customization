@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, TextInput, ActivityIndicator } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Button from '../../components/UI/Button';
 import HeaderText from '../../components/UI/HeaderText';
 import LoadingCover from '../../components/UI/LoadingCover';
 import MediumText from '../../components/UI/MediumText';
 import SimpleTextInput from '../../components/UI/SimpleTextInput';
-import useAppColorScheme from '../../hooks/useAppColorScheme';
 import useLoginWithTextPage from './utils';
 
 

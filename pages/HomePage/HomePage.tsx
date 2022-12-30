@@ -12,7 +12,7 @@ const HomePage: React.FC = () => {
     const {
 
     } = useHomePage();
-
+    
 
     return (
         <ScrollView style={style.root}>

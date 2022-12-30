@@ -9,7 +9,14 @@ const useJWT = () => {
     const storage = useAppStorage();
 
     const getJWT = async () : Promise<string | null> => {
-        return await storage.getJWT();
+        try {
+            const response = await storage.getJWT();
+            return response;
+        }
+        catch (error) {
+            return Promise.reject(error);
+        }
+        
     }
 
     const parseJwt = async () => {

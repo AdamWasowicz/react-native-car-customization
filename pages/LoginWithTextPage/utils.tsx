@@ -1,48 +1,77 @@
 import React, { useState } from 'react';
 import { setIsAuthorized, setToken } from '../../redux/features/auth-slice';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import useAppStorage from '../../hooks/useAppStorage';
-import useHTTP from '../../hooks/useHTTP/useHTTP';
 import { JWT } from '../../hooks/useAppStorage/constants';
 import { Alert } from 'react-native';
-import { AxiosError } from 'axios';
 import useAppNavigation from '../../hooks/useAppNavigation';
+import { loginWithTextPayload, loginWithTextResponse } from '../../hooks/useFaceRecognitionApi/models';
+import useFaceRecognitionApi from '../../hooks/useFaceRecognitionApi';
+import { setIsLoading } from '../../redux/features/app-slice';
 
 
 
 const useLoginWithTextPage = () => {
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [errorMsg, setErrorMsg] = useState<string>("");
-
-    const http = useHTTP();
     const dispatch = useAppDispatch();
     const navigation = useAppNavigation();
     const storage = useAppStorage();
+    const frApiClient = useFaceRecognitionApi();
+    const isLoading = useAppSelector(state => state.app.isLoading);
+
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
 
 
     const handleReqestSend = async () => {
-        setIsLoading(true);
+        dispatch(setIsLoading(true));
 
-        await http.SendLoginRequest(email, password)
-        .then(async (response: any) => {
-            const token: string =  response.auth_token;
+        // Send request
+        const data: loginWithTextPayload = {
+            email: email,
+            password: password,
+        }
+        let apiCallResponse: loginWithTextResponse;
 
-            dispatch(setToken(token));
+        try {
+            apiCallResponse = await frApiClient.loginWithText(data);
+        }
+        catch (error) {
+            console.log(error);
+
+            Alert.alert("Błąd", "Nie udało się zalogować", [
+                {
+                    text: "Ok",
+                    style: 'default'
+                }
+            ])
+
+            dispatch(setIsLoading(false));
+            return;
+        }
+
+        // Set JWT in storage
+        try {
+            await storage.insertKey(JWT, apiCallResponse!.auth_token)
+            dispatch(setToken(apiCallResponse!.auth_token));
             dispatch(setIsAuthorized(true));
-            await storage.insertKey(JWT, token);
-
-            setErrorMsg("");
             moveToMainPage();
-            setIsLoading(false);
-            Alert.alert("Logowanie pomyślne", "Witamy ponownie");
-        })
-        .catch((error: AxiosError) => {
-            setErrorMsg(error.message);
-            setIsLoading(false);
-            Alert.alert("Błąd logowania", "Sprawdź czy poprawnie wpisałeś swoje dane i spróbuj ponownie");
-        });
+        }
+        catch (error) {
+            console.log(error);
+
+            Alert.alert("Błąd", "Nie udało się zapisać danych", [
+                {
+                    text: "Ok",
+                    style: 'default'
+                }
+            ])
+        }
+        finally {
+            dispatch(setIsLoading(false));
+            return;
+        }
+        
     }
 
     const moveToMainPage = () => {

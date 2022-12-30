@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import useLoginWithPhotoPage from './utils';
 import useStyle from './style';
 import { Ionicons } from "@expo/vector-icons";
-import useAppColorScheme from '../../hooks/useAppColorScheme';
+import useAppColorScheme from '../../hooks/useAppColorScheme/useAppColorScheme';
 import Button from '../../components/UI/Button';
 
 

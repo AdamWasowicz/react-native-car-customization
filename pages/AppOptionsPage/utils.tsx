@@ -7,11 +7,11 @@ import { setIsAuthorized, setToken } from '../../redux/features/auth-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import useAppStorage from '../../hooks/useAppStorage';
 import { JWT } from '../../hooks/useAppStorage/constants';
+import { Alert } from 'react-native';
 
 
 const useAppOptionsPage = () => {
     const dispatch = useAppDispatch();
-
     const theme = useAppSelector(state => state.app.colorTheme);
     const isAuthorized = useAppSelector(state => state.auth.isAuthorized);
     const advancedOptionsEnabled = useAppSelector(state => state.app.advancedOptionsEnabled);
@@ -44,15 +44,30 @@ const useAppOptionsPage = () => {
     }
 
     // LOG OUT
-    const handleLogOut = () => {
-        storage.deleteKey(JWT)
-            .then((_) => {
-                dispatch(setIsAuthorized(false));
-                dispatch(setToken(""));
-            })
+    const handleLogOut = async () => {
+        try {
+            const response = await storage.deleteKey(JWT);
+            dispatch(setIsAuthorized(false));
+            dispatch(setToken(""));
+            Alert.alert("Sukces", "wylogowano pomyślnie", [
+                {
+                    text: "Ok",
+                    style: 'default'
+                }
+            ])
+        }
+        catch (error) {
+            console.log(error);
+            Alert.alert("Błąd", "nie udało się wylogować użytkownika", [
+                {
+                    text: "Ok",
+                    style: 'default'
+                }
+            ])
+        }
     }
 
-    // API
+    // Redux - App
     const handleApiAddressChange = () => {
         dispatch(setApiAddress(apiAddressInput));
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import useAppColorScheme from '../../../hooks/useAppColorScheme';
+import useAppColorScheme from '../../../hooks/useAppColorScheme/useAppColorScheme';
 import { useAppSelector } from '../../../redux/hooks';
 
 

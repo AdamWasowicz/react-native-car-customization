@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import {View, StyleSheet, Alert} from 'react-native';
-import { launchCameraAsync, ImagePickerOptions, useCameraPermissions, PermissionStatus } from 'expo-image-picker';
+import { View, StyleSheet, Alert}  from 'react-native';
 import Button from '../../../components/UI/Button';
 import { Ionicons } from "@expo/vector-icons";
-import useAppColorScheme from '../../../hooks/useAppColorScheme';
+import useAppColorScheme from '../../../hooks/useAppColorScheme/useAppColorScheme';
 import MediumText from '../../../components/UI/MediumText';
 import { useAppDispatch } from '../../../redux/hooks';
 import { setIsLoading } from '../../../redux/features/app-slice';
+import useDeviceCamera from '../../../hooks/useDeviceCamera';
 
 
 interface TakePhotosViewProps {
@@ -17,49 +17,34 @@ interface TakePhotosViewProps {
 
 const TakePhotosView: React.FC<TakePhotosViewProps> = (props) => {
     const [photoNumber, setPhotoNumber] = useState<number>(0);
-    const [cameraPermissionInformation, requestPermission] = useCameraPermissions();
     const appColorScheme = useAppColorScheme();
     const dispatch = useAppDispatch();
+    const camera = useDeviceCamera();
 
-
-    const verifyPermissions = async (): Promise<boolean> => {
-        if (cameraPermissionInformation?.status === PermissionStatus.UNDETERMINED) {
-            const permissionResponse = await requestPermission();
-
-            return permissionResponse.granted;
-        }
-
-        if (cameraPermissionInformation?.status === PermissionStatus.DENIED) {
-            Alert.alert("Brak uprawnień do kamery", "Musisz przyznać uprawnienia aby skorzystać z rejestracji");
-            //const permissionResponse = await requestPermission();
-            //return permissionResponse.granted;
-            return false;
-        }
-
-        return true;
-    }
 
     const takePhotoHandler = async () => {
-        const hasPermissionToCamera = await verifyPermissions();
-
-        if (hasPermissionToCamera == false) {
-            return;
-        }
-
         dispatch(setIsLoading(true));
 
-        const cameraOptions: ImagePickerOptions = {
-            aspect: [2, 3],
-            allowsEditing: false,
-            quality: 0.5,
-            base64: true
+        // Take photo
+        try {
+            const image = await camera.takePhotoAsBase64();
+            props.addImageToForm(image);
+            handleIncreasePhotoNumber();
         }
-        const image: any = await launchCameraAsync(cameraOptions);
+        catch (error) {
+            console.log(error);
 
-        props.addImageToForm(image.base64)
-        handleIncreasePhotoNumber();
-
-        dispatch(setIsLoading(false));
+            Alert.alert("Błąd", "Nie udało się zrobić zdjęcia", [
+                {
+                    text: "Ok",
+                    style: 'default'
+                }
+            ])
+        }
+        finally {
+            dispatch(setIsLoading(false));
+            return;
+        }
     }
 
     const handleIncreasePhotoNumber = () => {
@@ -73,6 +58,7 @@ const TakePhotosView: React.FC<TakePhotosViewProps> = (props) => {
             return "Wszystkie zdjęcia zrobione";
     }
 
+
     const style = StyleSheet.create({
         root: {
             padding: 16,
@@ -80,6 +66,7 @@ const TakePhotosView: React.FC<TakePhotosViewProps> = (props) => {
             justifyContent: 'space-between'
         }
     })
+
 
     return (
         <View style={style.root}>

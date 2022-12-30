@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
-import useAppColorScheme from '../../../hooks/useAppColorScheme';
+import useAppColorScheme from '../../../hooks/useAppColorScheme/useAppColorScheme';
 
 
 interface SimpleTextInputProps {

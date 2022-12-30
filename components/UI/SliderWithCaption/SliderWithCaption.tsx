@@ -4,7 +4,7 @@ import Slider from '@react-native-community/slider';
 import SmallText from "../SmallText";
 import MediumText from "../MediumText";
 import useStyle from './style';
-import useAppColorScheme from "../../../hooks/useAppColorScheme";
+import useAppColorScheme from "../../../hooks/useAppColorScheme/useAppColorScheme";
 import { useAppSelector } from "../../../redux/hooks";
 
 
