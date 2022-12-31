@@ -1,20 +1,23 @@
 import React from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
-import BigText from '../../../components/UI/BigText';
-import Button from '../../../components/UI/Button';
-import MediumText from '../../../components/UI/MediumText';
-import SimpleTextInput from '../../../components/UI/SimpleTextInput';
-import { isValid } from '../../../utils/validators/EmailAndPasswordValidator';
+import BigText from '../../../../components/UI/BigText';
+import Button from '../../../../components/UI/Button';
+import MediumText from '../../../../components/UI/MediumText';
+import SimpleTextInput from '../../../../components/UI/SimpleTextInput';
+import useEmailAndPasswordUnputView from './utilts';
 
-interface EmailAndPasswordViewProps {
+export interface EmailAndPasswordUnputViewProps {
     onPress: () => void,
-    email: string,
-    password: string,
-    handleEmailChange: (value: string) => void,
-    handlePasswordChange: (value: string) => void
 }
 
-const EmailAndPasswordView: React.FC<EmailAndPasswordViewProps> = (props) => {
+const EmailAndPasswordUnputView: React.FC<EmailAndPasswordUnputViewProps> = (props) => {
+    const {
+        email, password, passwordRepeat,
+        onNextHandler, 
+        handleEmailChange, handlePasswordChange, handlePasswordRepeatChange
+    } = useEmailAndPasswordUnputView(props);
+
+
     const style = StyleSheet.create({
         root: {
             flex: 1,
@@ -36,15 +39,6 @@ const EmailAndPasswordView: React.FC<EmailAndPasswordViewProps> = (props) => {
         },
     })
 
-    const onNext = () => {
-        const valid = isValid(props.email, props.password)
-        if (valid == false) {
-            Alert.alert("Niepoprawnie wypełniony formularz", "sprawdź czy email jest poprawny oraz hasło ma przynajmniej 8 znaków");
-            return;
-        }
-
-        props.onPress();
-    }
 
     return (
         <View style={style.root}>
@@ -55,9 +49,9 @@ const EmailAndPasswordView: React.FC<EmailAndPasswordViewProps> = (props) => {
                         <MediumText>Email:</MediumText>
 
                         <SimpleTextInput
-                            value={props.email}
+                            value={email}
                             placeholder={"E-mail"}
-                            onChangeText={props.handleEmailChange}
+                            onChangeText={handleEmailChange}
                             containerStyle={style.input}
                         />
                     </View>
@@ -66,9 +60,21 @@ const EmailAndPasswordView: React.FC<EmailAndPasswordViewProps> = (props) => {
                         <MediumText>Hasło:</MediumText>
 
                         <SimpleTextInput
-                            value={props.password}
+                            value={password}
                             placeholder={"Hasło"}
-                            onChangeText={props.handlePasswordChange}
+                            onChangeText={handlePasswordChange}
+                            containerStyle={style.input}
+                            password={true}
+                        />
+                    </View>
+
+                    <View style={style.inputContainer}>
+                        <MediumText>Powtórz Hasło:</MediumText>
+
+                        <SimpleTextInput
+                            value={passwordRepeat}
+                            placeholder={"Powtórz Hasło"}
+                            onChangeText={handlePasswordRepeatChange}
                             containerStyle={style.input}
                             password={true}
                         />
@@ -76,7 +82,7 @@ const EmailAndPasswordView: React.FC<EmailAndPasswordViewProps> = (props) => {
                 </View>
 
                 <Button
-                    onPress={onNext}
+                    onPress={onNextHandler}
                     caption={"Zaakceptuj i przejdź dalej"}
                     textStyle={{fontSize: 24}}
                     buttonStyle={{marginBottom: 24}}
@@ -85,4 +91,4 @@ const EmailAndPasswordView: React.FC<EmailAndPasswordViewProps> = (props) => {
     )
 }
 
-export default EmailAndPasswordView;
+export default EmailAndPasswordUnputView;

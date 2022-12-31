@@ -40,20 +40,26 @@ const useFaceRecognitionApi = () => {
 
     const regiser = async (data: registerPayload): Promise<registerResponse> => {
         try {
-            const response = await frApiClient.post<registerResponse>(registerEndpoint);
+            const response = await frApiClient.post<registerResponse>(registerEndpoint, {
+                data: data
+            });
             return response.data;
         }
         catch (error) {
+            console.log(error);
             return Promise.reject(error);
         }
     }
 
     const postSettings = async (data: carSettingsModel): Promise<postSettingsResponse> => {
         try {
-            const response = await frApiClient.post<postSettingsResponse>(postSettingsEndpoint);
+            const response = await frApiClient.post<postSettingsResponse>(postSettingsEndpoint, {
+                data: data
+            });
             return response.data;
         }
         catch (error) {
+            console.log(error);
             return Promise.reject(error);
         }
     }
@@ -64,6 +70,7 @@ const useFaceRecognitionApi = () => {
             return response.data;
         }
         catch (error) {
+            console.log(error);
             return Promise.reject(error);
         }
     }

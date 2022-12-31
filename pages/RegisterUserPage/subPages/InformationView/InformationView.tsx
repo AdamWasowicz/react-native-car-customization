@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
-import BigText from '../../../components/UI/BigText';
-import Button from '../../../components/UI/Button';
-import MediumText from '../../../components/UI/MediumText';
+import BigText from '../../../../components/UI/BigText';
+import Button from '../../../../components/UI/Button';
+import MediumText from '../../../../components/UI/MediumText';
+import { useAppDispatch } from '../../../../redux/hooks';
+import { clearForm } from '../../../../redux/features/registerForm-slice';
 
 interface InformationViewProps {
-    onClick: () => void,
+    onPress: () => void,
 }
 
 const InformationView: React.FC<InformationViewProps> = (props) => {
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(clearForm());
+    }, [])
+
     const style = StyleSheet.create({
         root: {
             padding: 16,
@@ -43,7 +50,7 @@ const InformationView: React.FC<InformationViewProps> = (props) => {
 
             <Button
                 caption={"Przejdź dalej"}
-                onPress={props.onClick}
+                onPress={props.onPress}
                 buttonStyle={{marginBottom: 24}}
             />
         </View>

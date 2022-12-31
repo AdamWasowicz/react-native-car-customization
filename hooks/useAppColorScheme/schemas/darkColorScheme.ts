@@ -1,4 +1,4 @@
-import { colorScheme } from "../../hooks/useAppColorScheme/useAppColorScheme";
+import { colorScheme } from "../useAppColorScheme";
 
 const dark = {
     black: '#000000',

@@ -1,5 +1,5 @@
-import darkColorScheme from "../../constants/style/darkColorScheme";
-import lightColorScheme from "../../constants/style/lightColorScheme";
+import darkColorScheme from "./schemas/darkColorScheme";
+import lightColorScheme from "./schemas/lightColorScheme";
 import { useAppSelector } from "../../redux/hooks";
 
 

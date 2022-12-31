@@ -9,8 +9,22 @@ const useAppNavigation = () => {
     const stackNavigator = useNavigation<NativeStackNavigationProp<StackNavigationParams>>();
     const bottomTabsNavigator = useNavigation<BottomTabNavigationProp<BottomTabsNavigationParams>>();
 
+    const moveToMainPage = () => {
+        //Move to MainPage
+        stackNavigator.navigate(
+            "MainPage",
+            {}
+        )
+
+        //Disable going back
+        stackNavigator.reset({
+            index: 0,
+            routes: [{name: 'MainPage'}],
+        });
+    }
+
     return {
-        stackNavigator, bottomTabsNavigator
+        stackNavigator, bottomTabsNavigator, moveToMainPage
     }
 }
 
