@@ -17,7 +17,7 @@ const initialState: RegisterFormState = {
     passwordRepeat: "",
     
     photos: [],
-    amountOfPhotosRequired: 1,
+    amountOfPhotosRequired: 4,
 }
 
 const RegisterFormSlice = createSlice({

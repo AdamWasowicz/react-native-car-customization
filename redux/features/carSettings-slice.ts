@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { carSettingsModel } from '../../hooks/useFaceRecognitionApi/models';
 
 
 interface carSettingsState {
@@ -52,6 +53,17 @@ const carSettingsSlice = createSlice({
         setPassengerSeatTiltMirrorTiltY(state: carSettingsState, action: PayloadAction<number>) {
             state.passengerMirrorTiltY = action.payload;
         },
+
+        setAllSettigns(state: carSettingsState, action: PayloadAction<carSettingsModel>) {
+            state.driverMirrorTiltX = action.payload.driverMirrorTiltX;
+            state.driverMirrorTiltY = action.payload.driverMirrorTiltY;
+
+            state.passengerMirrorTiltX = action.payload.passengerMirrorTiltX;
+            state.passengerMirrorTiltY = action.payload.passengerMirrorTiltY;
+
+            state.driverSeatTilt = action.payload.driverSeatTilt;
+            state.passengerSeatTilt = action.payload.passengerSeatTilt;
+        }
     }
 });
 
@@ -60,6 +72,7 @@ export const {
     setDriverSeatTilt, setPassengerSeatTilt,
     setDriverMirrorTiltX, setDriverMirrorTiltY,
     setPassengerSeatTiltMirrorTiltX, setPassengerSeatTiltMirrorTiltY,
+    setAllSettigns,
 } = carSettingsSlice.actions;
 
 

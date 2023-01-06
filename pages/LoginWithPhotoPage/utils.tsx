@@ -8,6 +8,7 @@ import { loginWithPhotoPayload, loginWithPhotoResponse } from '../../hooks/useFa
 import { setIsAuthorized, setToken } from '../../redux/features/auth-slice';
 import useAppStorage from '../../hooks/useAppStorage';
 import { JWT } from '../../hooks/useAppStorage/constants';
+import useAppNavigation from '../../hooks/useAppNavigation';
 
 
 const useLoginWithPhotoPage = () => {
@@ -15,6 +16,7 @@ const useLoginWithPhotoPage = () => {
     const frApiClient = useFaceRecognitionApi();
     const camera = useDeviceCamera();
     const storage = useAppStorage();
+    const navigation = useAppNavigation();
 
     const onClickHandler = async () => {
         dispatch(setIsLoading(true));
@@ -65,6 +67,14 @@ const useLoginWithPhotoPage = () => {
             dispatch(setToken(apiCallResponse!.auth_token));
             dispatch(setIsAuthorized(true));
 
+            Alert.alert("Sukces", "Udało się zalogować", [
+                {
+                    text: "Ok",
+                    style: 'default'
+                }
+            ])
+
+            navigation.moveToMainPage();
         }
         catch (error) {
             console.log(error);

@@ -86,8 +86,8 @@ const useCarSettingsPage = () => {
                     <SliderWithCaption
                         caption={'Nachylenie siedzenia kierowcy'}
                         sliderCaption={carSettingsState.driverSeatTilt.toFixed(0) + " Stopni"}
-                        minValue={90}
-                        maxValue={160}
+                        minValue={0}
+                        maxValue={100}
                         onValueChange={handleDriverSeatTiltChange}
                         value={carSettingsState.driverSeatTilt}
                     />
@@ -95,8 +95,8 @@ const useCarSettingsPage = () => {
                     <SliderWithCaption
                         caption={'Nachylenie siedzenia pasażera'}
                         sliderCaption={carSettingsState.passengerSeatTilt.toFixed(0) + " Stopni"}
-                        minValue={90}
-                        maxValue={160}
+                        minValue={0}
+                        maxValue={100}
                         onValueChange={handlePassengerSeatTiltChange}
                         value={carSettingsState.passengerSeatTilt}
                     />
@@ -104,8 +104,8 @@ const useCarSettingsPage = () => {
                     <SliderWithCaption
                         caption={'Nachylenie lusterka kierowcy (oś X)'}
                         sliderCaption={carSettingsState.driverMirrorTiltX.toFixed(0) + " Stopni"}
-                        minValue={-30}
-                        maxValue={30}
+                        minValue={0}
+                        maxValue={180}
                         onValueChange={handleDriverMirrorTiltXChange}
                         value={carSettingsState.driverMirrorTiltX}
                     />
@@ -113,8 +113,8 @@ const useCarSettingsPage = () => {
                     <SliderWithCaption
                         caption={'Nachylenie lusterka kierowcy (oś Y)'}
                         sliderCaption={carSettingsState.driverMirrorTiltY.toFixed(0) + " Stopni"}
-                        minValue={-30}
-                        maxValue={30}
+                        minValue={0}
+                        maxValue={180}
                         onValueChange={handleDriverMirrorTiltYChange}
                         value={carSettingsState.driverMirrorTiltY}
                     />
@@ -122,8 +122,8 @@ const useCarSettingsPage = () => {
                     <SliderWithCaption
                         caption={'Nachylenie lusterka pasażera (oś X)'}
                         sliderCaption={carSettingsState.passengerMirrorTiltX.toFixed(0) + " Stopni"}
-                        minValue={-30}
-                        maxValue={30}
+                        minValue={0}
+                        maxValue={180}
                         onValueChange={handlePassengerSeatTiltMirrorTiltXChange}
                         value={carSettingsState.passengerMirrorTiltX}
                     />
@@ -131,8 +131,8 @@ const useCarSettingsPage = () => {
                     <SliderWithCaption
                         caption={'Nachylenie lusterka pasażera (oś Y)'}
                         sliderCaption={carSettingsState.passengerMirrorTiltY.toFixed(0) + " Stopni"}
-                        minValue={-30}
-                        maxValue={30}
+                        minValue={0}
+                        maxValue={180}
                         onValueChange={handlePassengerSeatTiltMirrorTiltYChange}
                         value={carSettingsState.passengerMirrorTiltY}
                     />

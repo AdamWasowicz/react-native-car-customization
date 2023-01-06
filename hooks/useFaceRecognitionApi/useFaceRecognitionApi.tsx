@@ -1,6 +1,6 @@
 import React from 'react';
 import { carSettingsModel, getSettingsResponse, loginWithPhotoPayload, loginWithPhotoResponse, loginWithTextPayload, loginWithTextResponse, postSettingsResponse, registerPayload, registerResponse } from './models';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useAppSelector } from '../../redux/hooks';
 import { loginWithPhotoEndpoint, registerEndpoint, postSettingsEndpoint, getSettingsEndpoint } from './endpoints';
 
@@ -20,33 +20,36 @@ const useFaceRecognitionApi = () => {
 
     const loginWithText = async (data: loginWithTextPayload): Promise<loginWithTextResponse> => {
         try {
-            const response = await frApiClient.post<loginWithTextResponse>(loginWithPhotoEndpoint);
+            const response = await frApiClient.post<loginWithTextResponse>(loginWithPhotoEndpoint, data);
             return response.data;
         }
         catch (error) {
+            const aE = error as AxiosError;
+            console.log(JSON.stringify(aE));
             return Promise.reject(error);
         }
     }
 
     const loginWithPhoto = async(data: loginWithPhotoPayload): Promise<loginWithPhotoResponse> => {
         try {
-            const response = await frApiClient.post<loginWithPhotoResponse>(loginWithPhotoEndpoint)
+            const response = await frApiClient.post<loginWithPhotoResponse>(loginWithPhotoEndpoint, data)
             return response.data;
         }
         catch (error) {
+            const aE = error as AxiosError;
+            console.log(JSON.stringify(aE));
             return Promise.reject(error);
         }
     }
 
     const regiser = async (data: registerPayload): Promise<registerResponse> => {
         try {
-            const response = await frApiClient.post<registerResponse>(registerEndpoint, {
-                data: data
-            });
+            const response = await frApiClient.post<registerResponse>(registerEndpoint, data)
             return response.data;
         }
         catch (error) {
-            console.log(error);
+            const aE = error as AxiosError;
+            console.log(JSON.stringify(aE));
             return Promise.reject(error);
         }
     }

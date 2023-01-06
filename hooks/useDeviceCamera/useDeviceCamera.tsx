@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { launchCameraAsync, ImagePickerOptions, useCameraPermissions, PermissionStatus } from 'expo-image-picker';
 import { Alert } from 'react-native';
 
@@ -29,10 +29,9 @@ const useDeviceCamera = () => {
         }
 
         const cameraOptions: ImagePickerOptions = {
-            aspect: [2, 3],
-            allowsEditing: false,
-            quality: 0.5,
-            base64: true
+            allowsEditing: true,
+            quality: 0.1,
+            base64: true,
         }
         const image: any = await launchCameraAsync(cameraOptions);
 

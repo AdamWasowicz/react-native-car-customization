@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { store } from '../../redux/store';
 import Navigation from '../Navigation';
 import React, { useState } from 'react';
-import useFontsHook from '../../hooks/useFonts/useFonts';
+import useFonts from '../../hooks/useFonts/useFonts';
 import AppLoading from 'expo-app-loading';
 import LoadingCover from '../UI/LoadingCover';
 import StartUp from '../StartUp';
@@ -12,7 +12,7 @@ export default function App() {
     const [isAppReady, setIsAppReady] = useState<boolean>(false);
 
     const LoadFonts = async () => {
-      await useFontsHook();
+      await useFonts();
     }
 
     if (isAppReady == false) {

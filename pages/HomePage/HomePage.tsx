@@ -9,16 +9,14 @@ import useHomePage from './utils';
 
 
 const HomePage: React.FC = () => {
-    const {
-
-    } = useHomePage();
+    const {} = useHomePage();
     
-
+    
     return (
         <ScrollView style={style.root}>
             <View style={style.marginBottomBig}>
                 <HeaderText style={[style.center, style.marginBottomSmall]}>
-                    CarSetApp
+                    Samoapka
                 </HeaderText>
 
                 <MediumText style={style.center}>
