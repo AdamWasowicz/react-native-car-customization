@@ -1,8 +1,11 @@
 import React from 'react';
 import useAppStorage from '../useAppStorage';
+import jwtDecode from 'jwt-decode';
 
 interface appJWT_model  {
-
+    exp: number,
+    iat: number,
+    sub: number
 }
 
 const useJWT = () => {
@@ -19,23 +22,38 @@ const useJWT = () => {
         
     }
 
-    const parseJwt = async () => {
+    const parseJwt = async (): Promise<appJWT_model> => {
         const token: string | null = await getJWT();
 
         if (token == null)
-            return null;
-
-        var base64Url = token.split('.')[1];
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
+            throw new Error("JWT not pressent");
     
-        return JSON.parse(jsonPayload);
+        const decoded = jwtDecode(token) as appJWT_model;
+        return decoded
+    }
+
+    const checkIfTokenHasTime = async () => {
+        if (await getTimeLeftOnToken() < 0)
+            return false;
+
+        return true;
+    }
+
+    const getTimeLeftOnToken = async (): Promise<number> => {
+        const token = await parseJwt();
+        const expireTime = new Date(token.exp * 1000);
+        const now = new Date();
+
+        // console.log('getTimeLeftOnToken()')
+        // console.log('Now: ' + now.getTime())
+        // console.log('Exp: ' + expireTime.getTime())
+
+        return (expireTime.getTime() - now.getTime());
     }
 
     return {
-        getJWT, parseJwt
+        getJWT, parseJwt, checkIfTokenHasTime,
+        getTimeLeftOnToken
     }
 }
 

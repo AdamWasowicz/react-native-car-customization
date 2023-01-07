@@ -14,7 +14,7 @@ const useFaceRecognitionApi = () => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         },
     })
 
@@ -23,9 +23,8 @@ const useFaceRecognitionApi = () => {
             const response = await frApiClient.post<loginWithTextResponse>(loginWithPhotoEndpoint, data);
             return response.data;
         }
-        catch (error) {
-            const aE = error as AxiosError;
-            console.log(JSON.stringify(aE));
+        catch (error: any) {
+            console.log(JSON.stringify(error.response?.data?.message));
             return Promise.reject(error);
         }
     }
@@ -35,9 +34,8 @@ const useFaceRecognitionApi = () => {
             const response = await frApiClient.post<loginWithPhotoResponse>(loginWithPhotoEndpoint, data)
             return response.data;
         }
-        catch (error) {
-            const aE = error as AxiosError;
-            console.log(JSON.stringify(aE));
+        catch (error: any) {
+            console.log(JSON.stringify(error.response?.data?.message));
             return Promise.reject(error);
         }
     }
@@ -47,22 +45,19 @@ const useFaceRecognitionApi = () => {
             const response = await frApiClient.post<registerResponse>(registerEndpoint, data)
             return response.data;
         }
-        catch (error) {
-            const aE = error as AxiosError;
-            console.log(JSON.stringify(aE));
+        catch (error: any) {
+            console.log(JSON.stringify(error.response?.data?.message));
             return Promise.reject(error);
         }
     }
 
     const postSettings = async (data: carSettingsModel): Promise<postSettingsResponse> => {
         try {
-            const response = await frApiClient.post<postSettingsResponse>(postSettingsEndpoint, {
-                data: data
-            });
+            const response = await frApiClient.post<postSettingsResponse>(postSettingsEndpoint, data);
             return response.data;
         }
-        catch (error) {
-            console.log(error);
+        catch (error: any) {
+            console.log(JSON.stringify(error.response?.data?.message));
             return Promise.reject(error);
         }
     }
@@ -70,10 +65,12 @@ const useFaceRecognitionApi = () => {
     const getSettings = async (): Promise<getSettingsResponse> => {
         try {
             const response = await frApiClient.get<getSettingsResponse>(getSettingsEndpoint);
+            console.log('getSettings()')
+            console.log(response.data)
             return response.data;
         }
-        catch (error) {
-            console.log(error);
+        catch (error: any) {
+            console.log(JSON.stringify(error.response?.data?.message));
             return Promise.reject(error);
         }
     }
