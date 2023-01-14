@@ -27,7 +27,7 @@ export default function App() {
 
 
     return (
-      <SafeAreaProvider style={{flex: 1}}>
+      <SafeAreaProvider style={{flex: 1}} >
           <Provider store={store}>
             <StartUp>
               <LoadingCover/>

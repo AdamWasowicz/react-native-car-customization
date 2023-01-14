@@ -8,6 +8,7 @@ import useAppNavigation from '../../hooks/useAppNavigation';
 import { loginWithTextPayload, loginWithTextResponse } from '../../hooks/useFaceRecognitionApi/models';
 import useFaceRecognitionApi from '../../hooks/useFaceRecognitionApi';
 import { setIsLoading } from '../../redux/features/app-slice';
+import { setAllSettigns } from '../../redux/features/carSettings-slice';
 
 
 
@@ -66,6 +67,18 @@ const useLoginWithTextPage = () => {
                     style: 'default'
                 }
             ])
+
+            dispatch(setIsLoading(false));
+            return;
+        }
+
+        // Get settings
+        try {
+            const settings = await frApiClient.getSettings();
+            dispatch(setAllSettigns(settings.data));
+        }
+        catch(error) {
+            console.log(error);
         }
         finally {
             dispatch(setIsLoading(false));

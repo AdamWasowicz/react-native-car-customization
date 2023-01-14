@@ -39,6 +39,8 @@ const Navigation: React.FC = () => {
                     },
                     headerShadowVisible: true,
                     statusBarStyle: theme == 'light' ? 'dark' : 'light',
+                    statusBarColor: theme == 'light' ? 'white' : 'black',
+                    statusBarAnimation: "fade",
                 }}
                 initialRouteName={"MainPage"}
             >

@@ -36,7 +36,7 @@ const useDeviceCamera = () => {
         const image: any = await launchCameraAsync(cameraOptions);
 
         if (image.cancelled == true) {
-            return Promise.reject("Image not taken")
+            throw new Error('Camera error')
         }
         else {
             return image.base64; 

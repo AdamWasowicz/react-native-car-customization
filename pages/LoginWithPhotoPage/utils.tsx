@@ -9,6 +9,7 @@ import { setIsAuthorized, setToken } from '../../redux/features/auth-slice';
 import useAppStorage from '../../hooks/useAppStorage';
 import { JWT } from '../../hooks/useAppStorage/constants';
 import useAppNavigation from '../../hooks/useAppNavigation';
+import { setAllSettigns } from '../../redux/features/carSettings-slice';
 
 
 const useLoginWithPhotoPage = () => {
@@ -85,6 +86,18 @@ const useLoginWithPhotoPage = () => {
                     style: 'default'
                 }
             ])
+
+            dispatch(setIsLoading(false));
+            return;
+        }
+        
+        // Get settings
+        try {
+            const settings = await frApiClient.getSettings();
+            dispatch(setAllSettigns(settings.data));
+        }
+        catch(error) {
+            console.log(error);
         }
         finally {
             dispatch(setIsLoading(false));

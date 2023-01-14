@@ -34,7 +34,7 @@ const AppOptionsPage: React.FC = () => {
             </View>
 
             <View style={style.marginBottomMedium}>
-                <BigText>Zaawansowane Opcje</BigText>
+                {/* <BigText>Zaawansowane Opcje</BigText>
 
                 <ToggleSwitch
                     isOn={advancedOptionsToggle}
@@ -43,7 +43,7 @@ const AppOptionsPage: React.FC = () => {
                     onColor={darkColorScheme.accent}
                     offColor={lightColorScheme.primaryDark}
                     
-                />
+                /> */}
 
                 {
                     advancedOptionsToggle &&

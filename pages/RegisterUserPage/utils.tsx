@@ -11,6 +11,7 @@ import { Alert } from 'react-native';
 import useAppNavigation from '../../hooks/useAppNavigation';
 import { registerPayload, registerResponse } from '../../hooks/useFaceRecognitionApi/models';
 import useFaceRecognitionApi from '../../hooks/useFaceRecognitionApi';
+import { setAllSettigns } from '../../redux/features/carSettings-slice';
 
 const useRegisterUserPage = () => {
     const dispatch = useAppDispatch();
@@ -62,11 +63,6 @@ const useRegisterUserPage = () => {
             await storage.insertKey(JWT, apiCallResponse!.auth_token)
             dispatch(setToken(apiCallResponse!.auth_token));
             dispatch(setIsAuthorized(true));
-
-            dispatch(setIsLoading(false));
-            navigation.moveToMainPage();
-            return;
-
         }
         catch (error) {
             console.log(error);
@@ -79,6 +75,20 @@ const useRegisterUserPage = () => {
             ])
 
             dispatch(setIsLoading(false));
+            return;
+        }
+
+        // Get settings
+        try {
+            const settings = await frApiClient.getSettings();
+            dispatch(setAllSettigns(settings.data));
+        }
+        catch(error) {
+            console.log(error);
+        }
+        finally {
+            dispatch(setIsLoading(false));
+            navigation.moveToMainPage();
             return;
         }
     }

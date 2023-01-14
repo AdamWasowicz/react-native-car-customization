@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "ICK_P_FE",
-    "slug": "ICK_P_FE",
-    "version": "0.9.5",
+    "name": "Samoapka",
+    "slug": "Samoapka",
+    "version": "0.9.7",
     "orientation": "portrait",
     "entryPoint": "./index.ts",
     "icon": "./assets/images/icon.png",
@@ -38,14 +38,14 @@
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.adamwasowicz.ICK_P_FE"
+      "package": "com.adamwasowicz.Samoapka"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "928d17e1-1030-4061-bf0e-f541936f02f2"
+        "projectId": "d5063d4b-c8cf-4f7b-938b-e66a50529e6b"
       }
     }
   }
