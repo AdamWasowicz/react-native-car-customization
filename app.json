@@ -2,7 +2,7 @@
   "expo": {
     "name": "Samoapka",
     "slug": "Samoapka",
-    "version": "0.9.7",
+    "version": "1.0.0",
     "orientation": "portrait",
     "entryPoint": "./index.ts",
     "icon": "./assets/images/icon.png",
